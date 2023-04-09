@@ -13,7 +13,7 @@
     <div class="row">
         <div class="col-sm-8">
             <h1>{{ $partida->esFin() ? implode(" ", str_split($partida->getPalabraSecreta())) : implode(" ", str_split($partida->getPalabraDescubierta())) }}</h1>
-            <form action="juego.php" method="POST">
+            <form action="{{ $_SERVER['PHP_SELF'] }}" method="POST">
                 <div class="input-group">
                     <input type="text" name="letra" autofocus="autofocus" class="form-control {{ (isset($error)) ? (($error) ? "is-invalid" : "is-valid") : "" }} " 
                            accept="" placeholder="Introduce una letra" {{ $partida->esFin() ? "disabled" : "" }}>

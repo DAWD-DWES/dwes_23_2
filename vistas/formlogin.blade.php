@@ -15,7 +15,7 @@
             @endif
             <div class="panel-heading">Login</div>
             <div class="panel-body mt-3">
-                <form class="form-horizontal" method="POST" action="index.php" id='formlogin'>
+                <form class="form-horizontal" method="POST" action="{{ $_SERVER['PHP_SELF'] }}" id='formlogin'>
                     <div class="form-group row">                            
                         <label for="inputNombre" class="col-sm-2 col-form-label">Nombre</label>
                         <div class="col-sm-10">
