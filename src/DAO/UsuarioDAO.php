@@ -21,8 +21,11 @@ class UsuarioDAO {
         
     }
 
-    function elimina($nombre) {
-        
+    function elimina($id) {
+        $sql = "delete from usuarios where id = :id";
+        $sth = $this->bd->prepare($sql);
+        $result = $sth->execute([":id" => $id]);
+        return ($result);
     }
 
     function recuperaPorCredencial($nombre, $pwd) {

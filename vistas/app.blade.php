@@ -19,7 +19,7 @@
                         <a class="nav-link" aria-current="page" href="juego.php?botonnuevapartida">Nueva Partida</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="juego.php?botonnuevapartidapersonalizada">Nueva Partida Personalizada</a>
+                        <a class="nav-link" aria-current="page" href="juego.php?botonnuevapartidapersonalizadaform">Nueva Partida Personalizada</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">

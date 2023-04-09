@@ -77,6 +77,20 @@ if (isset($_SESSION['usuario'])) {
 // Invoco la vista del juego para empezar a jugar
         echo $blade->run("juego", compact('usuario', 'partida'));
         die;
+    } elseif (isset($_REQUEST['botonnuevapartidapersonalizadaform'])) {// Se arranca una nueva partida
+        echo $blade->run("formpartidapersonalizada");
+        die;
+    } elseif (isset($_REQUEST['botonpartidapersonalizada'])) {// Se arranca una nueva partida
+        $usuario = $_SESSION['usuario'];
+        $minLongitud = filter_input(INPUT_POST, 'minlongitud');
+        $maxLongitud = filter_input(INPUT_POST, 'maxlongitud');
+        $contiene = filter_input(INPUT_POST, 'contiene');
+        $almacenPalabras = new AlmacenPalabrasFichero();
+        $partida = new Hangman($almacenPalabras, MAX_NUM_ERRORES, $minLongitud, $maxLongitud, $contiene);
+        $_SESSION['partida'] = $partida;
+// Invoco la vista del juego para empezar a jugar
+        echo $blade->run("juego", compact('usuario', 'partida'));
+        die;
     } else { // En cualquier otro caso
         $usuario = $_SESSION['usuario'];
         $partida = $_SESSION['partida'];

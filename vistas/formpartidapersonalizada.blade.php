@@ -16,26 +16,33 @@
             @if (isset($message)) 
             <div class="alert alert-success">{{ $message }}</div>
             @endif
-            <div class="panel-heading mt-3">Login</div>
+            <div class="panel-heading mt-3">Partida Personalizada</div>
             <div class="panel-body mt-3">
-                <form class="form-horizontal" method="POST" action="{{ $_SERVER['PHP_SELF'] }}" id='formlogin'>
+                <form class="form-horizontal" method="POST" action="{{ $_SERVER['PHP_SELF'] }}" id='formpartidapersonalizada'>
                     <div class="form-group row">                            
-                        <label for="inputNombre" class="col-sm-2 col-form-label">Nombre</label>
+                        <label for="minlongitud" class="col-sm-2 col-form-label">Longitud Mínima</label>
                         <div class="col-sm-10">
-                            <input id="inputNombre" type="text"
-                                   class="form-control col-sm-10" id="inputNombre" placeholder="Nombre" name="nombre">
+                            <input id="minlongitud" type="number"
+                                   class="form-control col-sm-10" name="minlongitud">
+                        </div>
+                    </div>
+                    <div class="form-group row">                            
+                        <label for="maxlongitud" class="col-sm-2 col-form-label">Longitud Máxima</label>
+                        <div class="col-sm-10">
+                            <input id="maxlongitud" type="number"
+                                   class="form-control col-sm-10" name="maxlongitud">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                        <label for="contiene" class="col-sm-2 col-form-label">Contiene las letras</label>
                         <div class="col-sm-10">
-                            <input type="password"
-                                   class="form-control col-sm-10" id="inputPassword" placeholder="Password" name="clave">
+                            <input type="text"
+                                   class="form-control col-sm-10" id="contiene" name="contiene">
                         </div>        
                     </div>
                     <div class="form-group">
                         <div class="col-md-8 col-md-offset-4">
-                            <input type="submit" class="btn btn-primary" name="botonproclogin" value="Login">
+                            <input type="submit" class="btn btn-primary" name="botonpartidapersonalizada" value="Enviar">
                         </div>
                     </div>
                 </form>

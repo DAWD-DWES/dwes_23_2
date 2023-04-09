@@ -2,7 +2,6 @@
 
 namespace App\Modelo;
 
-
 /**
  * Hangman representa una partida del juego del ahorcado
  */
@@ -46,8 +45,18 @@ class Hangman {
      * 
      * @returns Hangman
      */
-    public function __construct($almacen, $maxNumErrores) {
-        $this->setPalabraSecreta(strtoupper($almacen->obtenerPalabraAleatoria()));
+    public function __construct($almacen, $maxNumErrores, $min_longitud = 0, $max_longitud = PHP_INT_MAX,
+            $contiene = "") {
+        $cont = $contiene;
+        $esCorrecta = false;
+        while (!$esCorrecta) {
+            $palabra = strtoupper($almacen->obtenerPalabraAleatoria());
+            if ((strlen($palabra) >= $min_longitud) && (strlen($palabra) <= $max_longitud) && (empty($contiene) ||
+                    (array_sum(array_map(fn($x) => str_contains($palabra, $x), str_split(strtoupper($cont)))) === strlen($contiene)))) {
+                $esCorrecta = true;
+            }
+        }
+        $this->setPalabraSecreta($palabra);
         // Inicializa la estado de la palabra descubierta a una secuencia de guiones, uno por letra de la palabra oculta
         $this->setPalabraDescubierta(preg_replace('/\w+?/', '_', $this->getPalabraSecreta()));
         $this->setLetras("");

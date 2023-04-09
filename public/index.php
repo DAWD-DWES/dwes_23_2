@@ -63,7 +63,15 @@ if (isset($_SESSION['usuario'])) {
         // Invoco la vista del formulario de login
         echo $blade->run("formlogin");
         die;
-    } else if (isset($_SESSION['partida'])) { // Si hay una partida en curso
+    } elseif (isset($_REQUEST['botonbaja'])) { // Si se solicita la baja del usuario
+        $usuario = $_SESSION['usuario'];
+        $usuarioDAO->elimina($usuario->getId());
+        session_unset();
+        session_destroy();
+        setcookie(session_name(), '', 0, '/');
+        echo $blade->run("formlogin", ['message' => 'Baja realizada con éxito']);
+        die;
+    } elseif (isset($_SESSION['partida'])) { // Si hay una partida en curso
         header("Location:juego.php");
     } // Si se solicita una nueva partida
     else { // Si se pide una nueva partida
