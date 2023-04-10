@@ -83,14 +83,24 @@ if (isset($_SESSION['usuario'])) {
     } elseif (isset($_REQUEST['botonpartidapersonalizada'])) {// Se arranca una nueva partida
         $usuario = $_SESSION['usuario'];
         $minLongitud = filter_input(INPUT_POST, 'minlongitud');
+        $minLongitudError = !(empty($minLongitud) || filter_var($minLongitud, FILTER_VALIDATE_INT, ['options' => ['min_range' => 2, 'max_range' => 14]]));
         $maxLongitud = filter_input(INPUT_POST, 'maxlongitud');
-        $contiene = filter_input(INPUT_POST, 'contiene');
-        $almacenPalabras = new AlmacenPalabrasFichero();
-        $partida = new Hangman($almacenPalabras, MAX_NUM_ERRORES, $minLongitud, $maxLongitud, $contiene);
-        $_SESSION['partida'] = $partida;
+        $maxLongitudError = !(empty($maxLongitud) || filter_var($maxLongitud, FILTER_VALIDATE_INT, ['options' => ['min_range' => 2, 'max_range' => 14]]));
+        $maxminError = !empty($minLongitud) && !empty($maxLongitud) && ($minLongitud > $maxLongitud);
+        $contiene = strtoupper(trim(filter_input(INPUT_POST, 'contiene')));
+        $contieneError = !(empty($contiene) || filter_var($contiene, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => "\[A..Z]{1,3}"]]));
+        $error = $minLongitudError || $maxLongitudError || $maxminError || $contieneError;
+        if ($error) {
+            echo $blade->run("formpartidapersonalizada", compact('minLongitud', 'minLongitudError', 'maxLongitud', 'maxLongitudError', 'maxminError', 'contiene', 'contieneError'));
+            die;
+        } else {
+            $almacenPalabras = new AlmacenPalabrasFichero();
+            $partida = new Hangman($almacenPalabras, MAX_NUM_ERRORES, $minLongitud, $maxLongitud, $contiene);
+            $_SESSION['partida'] = $partida;
 // Invoco la vista del juego para empezar a jugar
-        echo $blade->run("juego", compact('usuario', 'partida'));
-        die;
+            echo $blade->run("juego", compact('usuario', 'partida'));
+            die;
+        }
     } else { // En cualquier otro caso
         $usuario = $_SESSION['usuario'];
         $partida = $_SESSION['partida'];

@@ -23,22 +23,31 @@
                         <label for="minlongitud" class="col-sm-2 col-form-label">Longitud Mínima</label>
                         <div class="col-sm-10">
                             <input id="minlongitud" type="number"
-                                   class="form-control col-sm-10" name="minlongitud">
+                                   class="form-control col-sm-10 {{ isset($minLongitudError) ? ($minLongitudError ? "is-invalid" : "is-valid") : "" }}" name="minlongitud" value="{{ $minLongitud ?? "" }}">
+                        </div>
+                        <div class="col-sm-10 invalid-feedback">
+                            El valor de longitud mínima está fuera de rango
                         </div>
                     </div>
                     <div class="form-group row">                            
                         <label for="maxlongitud" class="col-sm-2 col-form-label">Longitud Máxima</label>
                         <div class="col-sm-10">
                             <input id="maxlongitud" type="number"
-                                   class="form-control col-sm-10" name="maxlongitud">
+                                   class="form-control col-sm-10 {{ isset($maxLongitudError) ? ($maxLongitudError ? "is-invalid" : "is-valid") : "" }}" name="maxlongitud" value="{{ $maxLongitud ?? "" }}">
+                        </div>
+                        <div class="col-sm-10 invalid-feedback">
+                            El valor de longitud máxima está fuera de rango
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="contiene" class="col-sm-2 col-form-label">Contiene las letras</label>
                         <div class="col-sm-10">
-                            <input type="text"
-                                   class="form-control col-sm-10" id="contiene" name="contiene">
-                        </div>        
+                            <input id="contiene" type="text"
+                                   class="form-control col-sm-10 {{ isset($contieneError) ? ($contieneError ? "is-invalid" : "is-valid") : "" }}" name="contiene" value="{{ $contiene ?? "" }}">
+                        </div>
+                        <div class="col-sm-10 invalid-feedback">
+                            El valor de letras contenidas no es correcto
+                        </div>
                     </div>
                     <div class="form-group">
                         <div class="col-md-8 col-md-offset-4">
