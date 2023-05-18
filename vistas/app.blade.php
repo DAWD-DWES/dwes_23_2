@@ -12,32 +12,17 @@
                 <img src="assets/img/logo.png" alt="" width="30" height="24">
                 Ahorcado
             </a>
-            @section('navbar')
             <div class="container justify-content-around">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="juego.php?botonnuevapartida">Nueva Partida</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="juego.php?botonnuevapartidapersonalizada">Nueva Partida Personalizada</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            {{ (is_null($usuario) ?: $usuario->getNombre()) }}
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="index.php?botonbaja">Baja</a></li>
-                            <li><a class="dropdown-item" href="index.php?botonlogout">Logout</a></li>
-                        </ul>
-                    </li>
+                    @yield('navbar')
                 </ul>
             </div>
-            @show
         </nav>
         @yield('mensaje')
         @yield('content')
         <!-- Scripts -->
         <script src="assets/js/bootstrap/bootstrap.min.js"></script>
         <script src="assets/js/jquery/jquery-3.6.0.min.js"></script>
+        <script src="assets/js/pista.js"></script>
     </body>
 </html>
