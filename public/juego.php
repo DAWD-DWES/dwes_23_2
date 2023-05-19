@@ -62,18 +62,18 @@ if (isset($_SESSION['usuario'])) {
 // Invoco la vista del juego para empezar a jugar
         echo $blade->run("juego", compact('usuario', 'partida'));
         die;
-    } elseif (isset($_REQUEST['botonnuevapartidapersonalizadaform'])) {// Se arranca una nueva partida
+    } elseif (isset($_REQUEST['botonformpartidapersonalizada'])) {// Se arranca una nueva partida
         echo $blade->run("formpartidapersonalizada");
         die;
     } elseif (isset($_REQUEST['botonpartidapersonalizada'])) {// Se arranca una nueva partida
         $usuario = $_SESSION['usuario'];
         $minLongitud = filter_input(INPUT_POST, 'minlongitud');
-        $minLongitudError = filter_var($minLongitud, FILTER_VALIDATE_INT, ['options' => ['min_range' => 2, 'max_range' => 14]]);
+        $minLongitudError = !empty($minLongitud) && !(filter_var($minLongitud, FILTER_VALIDATE_INT, ['options' => ['min_range' => 2, 'max_range' => 14]]));
         $maxLongitud = filter_input(INPUT_POST, 'maxlongitud');
-        $maxLongitudError = filter_var($maxLongitud, FILTER_VALIDATE_INT, ['options' => ['min_range' => 2, 'max_range' => 14]]);
+        $maxLongitudError = !empty($minLongitud) && !(filter_var($maxLongitud, FILTER_VALIDATE_INT, ['options' => ['min_range' => 2, 'max_range' => 14]]));
         $maxminError = !empty($minLongitud) && !empty($maxLongitud) && ($minLongitud > $maxLongitud);
         $contiene = trim(filter_input(INPUT_POST, 'contiene'));
-        $contieneError = !empty($contiene) || filter_var($contiene, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => "\[a..zA..Z]{1,3}"]]);
+        $contieneError = !empty($contiene) && !(filter_var($contiene, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '/^[a-zA-Z]{1,3}$/']]));
         $error = $minLongitudError || $maxLongitudError || $maxminError || $contieneError;
         if ($error) {
             echo $blade->run("formpartidapersonalizada", compact('minLongitud', 'minLongitudError', 'maxLongitud', 'maxLongitudError', 'maxminError', 'contiene', 'contieneError'));

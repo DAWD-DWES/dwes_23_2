@@ -8,11 +8,11 @@
     <a class="nav-link" aria-current="page" href="juego.php?botonnuevapartida">Nueva Partida</a>
 </li>
 <li class="nav-item">
-    <a class="nav-link" aria-current="page" href="juego.php?botonnuevapartidapersonalizada">Nueva Partida Personalizada</a>
+    <a class="nav-link" aria-current="page" href="juego.php?botonformpartidapersonalizada">Nueva Partida Personalizada</a>
 </li>
 <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        {{ (is_null($usuario) ?: $usuario->getNombre()) }}
+        {{ $usuario->getNombre() }}
     </a>
     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
         <li><a class="dropdown-item" href="index.php?botonbaja">Baja</a></li>
