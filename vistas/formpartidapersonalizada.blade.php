@@ -4,6 +4,9 @@
 @section('title', 'Formulario login')
 {{-- Sección sobreescribe el barra de navegación de la plantilla app --}}
 @section('navbar')
+<li class="nav-item">
+    <a class="nav-link" aria-current="page" href="juego.php">Volver</a>
+</li>
 @endsection
 {{-- Sección muestra el formulario de login del usuario --}}
 @section('content')
