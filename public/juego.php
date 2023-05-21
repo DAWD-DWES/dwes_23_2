@@ -70,7 +70,7 @@ if (isset($_SESSION['usuario'])) {
         $minLongitud = filter_input(INPUT_POST, 'minlongitud');
         $minLongitudError = !empty($minLongitud) && !(filter_var($minLongitud, FILTER_VALIDATE_INT, ['options' => ['min_range' => 2, 'max_range' => 14]]));
         $maxLongitud = filter_input(INPUT_POST, 'maxlongitud');
-        $maxLongitudError = !empty($minLongitud) && !(filter_var($maxLongitud, FILTER_VALIDATE_INT, ['options' => ['min_range' => 2, 'max_range' => 14]]));
+        $maxLongitudError = !empty($minLongitud) && !(filter_var($maxLongitud, FILTER_VALIDATE_INT, ['options' => ['min_range' => 3, 'max_range' => 20]]));
         $maxminError = !empty($minLongitud) && !empty($maxLongitud) && ($minLongitud > $maxLongitud);
         $contiene = trim(filter_input(INPUT_POST, 'contiene'));
         $contieneError = !empty($contiene) && !(filter_var($contiene, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '/^[a-zA-Z]{1,3}$/']]));
