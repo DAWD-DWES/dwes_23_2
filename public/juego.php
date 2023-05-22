@@ -13,7 +13,11 @@
  *   Sino si se solicita una nueva partida
  *     Se crea una nueva partida
  *     Invoco la vista del juego para empezar a jugar
- *   Sino Invoco la vista de juego
+ *   Sino 
+ *     Si se solicita el formulario de registro
+ *         
+ * 
+ * Invoco la vista de juego
  *  Sino (En cualquier otro caso)
  *      Invoco la vista del formulario de login
  */
