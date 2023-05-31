@@ -14,7 +14,7 @@
     <div>
         <h2 class="text-center">Partida Personalizada</h2>
         <div>
-            <form method="POST" action="{{ $_SERVER['PHP_SELF'] }}" id='formpartidapersonalizada'>
+            <form method="POST" action="{{ $_SERVER['PHP_SELF'] }}" id='formpartidapersonalizada' novalidate>
                 <div class="input-group mb-3">                            
                     <label for="minlongitud" class="col-sm-2 col-form-label">Longitud Mínima</label>
                     <div class="col-sm-10">
@@ -35,6 +35,11 @@
                         </div>
                     </div>
                 </div>
+                @if (isset ($maxminError) && $maxminError)
+                <div class="col-sm-10 text-danger me-3">
+                    El valor de longitud mínima mayor que longitud máxima
+                </div>
+                @endif
                 <div class="input-group mb-3">
                     <label for="contiene" class="col-sm-2 col-form-label">Contiene las letras</label>
                     <div class="col-sm-10">

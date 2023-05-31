@@ -8,6 +8,8 @@
  *   Si se solicita cerrar la sesión
  *     Destruyo la sesión
  *     Invoco la vista del formulario de login
+ *    Sino si se solicita una baja de usuario
+ *       se elimina el usuario autenticado
  *    Sino redirección a juego para jugar una partida
  *  Sino 
  *   Si se pide procesar los datos del formulario

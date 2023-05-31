@@ -13,6 +13,15 @@
  *   Sino si se solicita una nueva partida
  *     Se crea una nueva partida
  *     Invoco la vista del juego para empezar a jugar
+ *   Sino si se el formulario de partida personalizada
+ *     Invoco la vista de formulario de partida personalizada
+ *   Sino si se pide que se procese los datos del formulario de partida personalizada
+ *     Leo los datos de longitud maxima, mínima y letras
+ *     Compruebo si hay errores
+ *     Si hay errores
+ *        Invoco la vista de formulario de partida personlizada con los errores cometidos
+ *     sino utilizo los datos para crear una nueva partida
+ *         Invoco la vista del juego para jugar con ella
  *   Sino Invoco la vista de juego
  *  Sino (En cualquier otro caso)
  *      Invoco la vista del formulario de login
@@ -34,6 +43,18 @@ $dotenv->load();
 $views = __DIR__ . '/../vistas';
 $cache = __DIR__ . '/../cache';
 $blade = new BladeOne($views, $cache, BladeOne::MODE_DEBUG);
+
+function esLongitudMinimaError ($lon) {
+    return !(filter_var($lon, FILTER_VALIDATE_INT, ['options' => ['min_range' => 3, 'max_range' => 14]]));
+}
+
+function esLongitudMaximaError ($lon) {
+    return !(filter_var($lon, FILTER_VALIDATE_INT, ['options' => ['min_range' => 5, 'max_range' => 20]]));
+}
+
+function esContieneError ($letras) {
+    return !(filter_var($contiene, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '/^[a-zA-Z]{1,3}$/']]));
+}
 
 // Si el usuario ya está validado
 if (isset($_SESSION['usuario'])) {
@@ -66,12 +87,14 @@ if (isset($_SESSION['usuario'])) {
         die;
     } elseif (isset($_REQUEST['botonpartidapersonalizada'])) {// Se arranca una nueva partida
         $minLongitud = filter_input(INPUT_POST, 'minlongitud');
-        $minLongitudError = !empty($minLongitud) && !(filter_var($minLongitud, FILTER_VALIDATE_INT, ['options' => ['min_range' => 2, 'max_range' => 14]]));
+        $minLongitudError = !empty($minLongitud) && esLongitudMinimaError($minLongitud);
         $maxLongitud = filter_input(INPUT_POST, 'maxlongitud');
-        $maxLongitudError = !empty($minLongitud) && !(filter_var($maxLongitud, FILTER_VALIDATE_INT, ['options' => ['min_range' => 3, 'max_range' => 20]]));
-        $maxminError = !empty($minLongitud) && !empty($maxLongitud) && ($minLongitud > $maxLongitud);
+        $maxLongitudError = !empty($minLongitud) && esLongitudMaximaError($maxLongitud);;
+        $maxminError = !empty($minLongitud) && !empty($maxLongitud) 
+                && !esLongitudMinimaError($minLongitud) && !esLongitudMaximaError($maxLongitud) 
+                && ($minLongitud > $maxLongitud);
         $contiene = trim(filter_input(INPUT_POST, 'contiene'));
-        $contieneError = !empty($contiene) && !(filter_var($contiene, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '/^[a-zA-Z]{1,3}$/']]));
+        $contieneError = !empty($contiene) && esContieneError($contiene);
         $error = $minLongitudError || $maxLongitudError || $maxminError || $contieneError;
         if ($error) {
             echo $blade->run("formpartidapersonalizada", compact('minLongitud', 'minLongitudError', 'maxLongitud', 'maxLongitudError', 'maxminError', 'contiene', 'contieneError', 'usuario'));
