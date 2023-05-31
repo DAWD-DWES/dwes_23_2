@@ -8,19 +8,13 @@
     <a class="nav-link" aria-current="page" href="juego.php">Volver</a>
 </li>
 @endsection
-{{-- Sección muestra el formulario de login del usuario --}}
+{{-- Sección muestra el formulario de una partida personalizada --}}
 @section('content')
-<div class="container my-5 col-md-8">
-    <div class="panel panel-default">
-        @if (isset($error)) 
-        <div class="alert alert-danger" role="alert">Error Credenciales</div>
-        @endif
-        @if (isset($message)) 
-        <div class="alert alert-success">{{ $message }}</div>
-        @endif
+<div class="container col-md-4">
+    <div>
         <h2 class="text-center">Partida Personalizada</h2>
-        <div class="panel-body mt-3">
-            <form class="form-horizontal" method="POST" action="{{ $_SERVER['PHP_SELF'] }}" id='formpartidapersonalizada'>
+        <div>
+            <form method="POST" action="{{ $_SERVER['PHP_SELF'] }}" id='formpartidapersonalizada'>
                 <div class="input-group mb-3">                            
                     <label for="minlongitud" class="col-sm-2 col-form-label">Longitud Mínima</label>
                     <div class="col-sm-10">
