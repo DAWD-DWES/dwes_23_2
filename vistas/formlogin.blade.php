@@ -8,6 +8,9 @@
 @section('content')
 <div class="container col-md-4">
     <div>
+        @if (isset($mensaje)) 
+        <div  class="alert alert-primary" role="alert">{{ $mensaje }}</div>
+        @endif
         @if (isset($error)) 
         <div class="alert alert-danger" role="alert">Error Credenciales</div>
         @endif

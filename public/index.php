@@ -72,7 +72,7 @@ if (isset($_SESSION['usuario'])) {
         session_unset();
         session_destroy();
         setcookie(session_name(), '', 0, '/');
-        echo $blade->run("formlogin", ['message' => 'Baja realizada con éxito']);
+        echo $blade->run("formlogin", ['mensaje' => 'Baja realizada con éxito']);
         die;
     } else {
         if (isset($_SESSION['partida'])) { // Si hay una partida en curso
