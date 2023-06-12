@@ -42,14 +42,12 @@ class Hangman {
      * 
      * @returns Hangman
      */
-    public function __construct($almacen, $maxNumErrores, $min_longitud = 0, $max_longitud = PHP_INT_MAX,
-            $contiene = "") {
-        $cont = $contiene;
+    public function __construct($almacen, $maxNumErrores = 5, $options = []) {
         $esCorrecta = false;
         while (!$esCorrecta) {
             $palabra = strtoupper($almacen->obtenerPalabraAleatoria());
-            if ((strlen($palabra) >= $min_longitud) && (strlen($palabra) <= $max_longitud) && (empty($contiene) ||
-                    (array_sum(array_map(fn($x) => str_contains($palabra, $x), str_split(strtoupper($cont)))) === strlen($contiene)))) {
+            if ((strlen($palabra) >= ($options['minLongitud'] ?? 0)) && (strlen($palabra) <= ($options['maxLongitud'] ?? PHP_INT_MAX)) &&
+                    (array_sum(array_map(fn($x) => !empty($x) && str_contains($palabra, $x), str_split(strtoupper($options['contiene'] ?? "")))) === strlen($options['contiene'] ?? ""))) {
                 $esCorrecta = true;
             }
         }

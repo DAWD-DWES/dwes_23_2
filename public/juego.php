@@ -53,7 +53,7 @@ function esLongitudMaximaError ($lon) {
 }
 
 function esContieneError ($letras) {
-    return !(filter_var($contiene, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '/^[a-zA-Z]{1,3}$/']]));
+    return !(filter_var($letras, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '/^[a-zA-Z]{1,3}$/']]));
 }
 
 // Si el usuario ya está validado
@@ -89,7 +89,7 @@ if (isset($_SESSION['usuario'])) {
         $minLongitud = filter_input(INPUT_POST, 'minlongitud');
         $minLongitudError = !empty($minLongitud) && esLongitudMinimaError($minLongitud);
         $maxLongitud = filter_input(INPUT_POST, 'maxlongitud');
-        $maxLongitudError = !empty($minLongitud) && esLongitudMaximaError($maxLongitud);;
+        $maxLongitudError = !empty($maxLongitud) && esLongitudMaximaError($maxLongitud);;
         $maxminError = !empty($minLongitud) && !empty($maxLongitud) 
                 && !esLongitudMinimaError($minLongitud) && !esLongitudMaximaError($maxLongitud) 
                 && ($minLongitud > $maxLongitud);
@@ -102,7 +102,8 @@ if (isset($_SESSION['usuario'])) {
         } else {
             $rutaFichero = $_ENV['RUTA_ALMACEN_PALABRAS'];
             $almacenPalabras = new AlmacenPalabrasFichero($rutaFichero);
-            $partida = new Hangman($almacenPalabras, MAX_NUM_ERRORES, $minLongitud, $maxLongitud, $contiene);
+            $options = array_filter (compact('minLongitud', 'maxLongitud', 'contiene'), fn ($x) => !empty($x));
+            $partida = new Hangman($almacenPalabras, MAX_NUM_ERRORES, $options);
             $_SESSION['partida'] = $partida;
 // Invoco la vista del juego para empezar a jugar
             echo $blade->run("juego", compact('usuario', 'partida'));
