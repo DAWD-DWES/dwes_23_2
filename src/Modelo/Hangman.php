@@ -46,8 +46,8 @@ class Hangman {
         $esCorrecta = false;
         while (!$esCorrecta) {
             $palabra = strtoupper($almacen->obtenerPalabraAleatoria());
-            if ((strlen($palabra) >= ($options['minLongitud'] ?? 0)) && (strlen($palabra) <= ($options['maxLongitud'] ?? PHP_INT_MAX)) &&
-                    (array_sum(array_map(fn($x) => !empty($x) && str_contains($palabra, $x), str_split(strtoupper($options['contiene'] ?? "")))) === strlen($options['contiene'] ?? ""))) {
+            if ((strlen($palabra) >= ($options['minLongitud'] ?? 3)) && (strlen($palabra) <= ($options['maxLongitud'] ?? 20)) && (!isset($options['contiene']) ||
+                    (array_sum(array_map(fn($x) => str_contains($palabra, $x), str_split(strtoupper($options['contiene'])))) === strlen($options['contiene'] ?? "")))) {
                 $esCorrecta = true;
             }
         }
@@ -208,5 +208,4 @@ class Hangman {
     public function esFin(): bool {
         return ($this->esPalabraDescubierta() || ($this->getNumErrores() === $this->getMaxNumErrores()));
     }
-
 }
